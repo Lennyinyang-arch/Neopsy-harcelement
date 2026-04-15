@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neopsy — Harcèlement au Travail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --slate: #2d3561;
+    --sage: #4a7c59;
+    --warm: #f5f0e8;
+    --cream: #faf8f4;
+    --gold: #c8a96e;
+    --muted: #8a8a9a;
+    --border: #e0dcd4;
+    --danger: #c0392b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(250, 248, 244, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--slate);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-logo span { color: var(--sage); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.875rem;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--sage); }
+
+  .nav-cta {
+    background: var(--sage) !important;
+    color: white !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 4px;
+    font-weight: 500 !important;
+    transition: opacity 0.2s !important;
+  }
+
+  .nav-cta:hover { opacity: 0.85; color: white !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-top: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--cream) 60%, #e8f0ec 100%);
+    z-index: 0;
+  }
+
+  .hero-pattern {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: 
+      radial-gradient(ellipse at 70% 40%, rgba(74,124,89,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 80%, rgba(45,53,97,0.05) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  .hero-left {
+    padding: 6rem 3rem 6rem 5vw;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(74,124,89,0.1);
+    color: var(--sage);
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(74,124,89,0.2);
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--sage);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-left h1 em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .hero-left p {
+    font-size: 1.05rem;
+    color: #555;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--sage);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: #3d6b4a;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(74,124,89,0.25);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    padding: 0.875rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.95rem;
+    border: 1.5px solid var(--border);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--slate);
+    transform: translateY(-1px);
+  }
+
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(26,26,46,0.1), 0 4px 12px rgba(26,26,46,0.05);
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .hero-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: var(--slate);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .contact-item:last-of-type { border-bottom: none; }
+
+  .contact-icon {
+    width: 36px; height: 36px;
+    background: rgba(74,124,89,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-label { font-size: 0.75rem; color: var(--muted); }
+  .contact-value { font-weight: 500; color: var(--ink); }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .stat-box {
+    background: var(--warm);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--sage);
+    line-height: 1;
+  }
+
+  .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
+  /* ── SECTIONS COMMUNES ── */
+  section { padding: 6rem 5vw; }
+
+  .section-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--sage);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: #666;
+    max-width: 560px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── TYPES DE HARCÈLEMENT ── */
+  #types {
+    background: white;
+  }
+
+  .types-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-bottom: 4rem;
+  }
+
+  .types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .type-card {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+    background: white;
+  }
+
+  .type-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--sage);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.25s;
+  }
+
+  .type-card:hover {
+    border-color: var(--sage);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(74,124,89,0.1);
+  }
+
+  .type-card:hover::before {
+    transform: scaleY(1);
+  }
+
+  .type-icon {
+    width: 48px; height: 48px;
+    background: rgba(74,124,89,0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .type-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--slate);
+    margin-bottom: 0.75rem;
+  }
+
+  .type-card p {
+    font-size: 0.875rem;
+    color: #666;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .type-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    background: var(--warm);
+    color: var(--ink);
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 400;
+  }
+
+  /* ── SIGNES ── */
+  #signes {
+    background: var(--warm);
+  }
+
+  .signes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .signe-item {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+
+  .signe-item:hover { border-color: var(--sage); }
+
+  .signe-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 2rem;
+  }
+
+  .signe-text h4 {
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .signe-text p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* ── CHATBOT ── */
+  #chatbot {
+    background: var(--slate);
+    color: white;
+  }
+
+  .chatbot-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .chatbot-left .section-title { color: white; }
+  .chatbot-left .section-tag { color: #82c9a0; }
+  .chatbot-left .section-sub { color: rgba(255,255,255,0.65); }
+
+  .chatbot-features {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .chatbot-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .chatbot-feature .dot {
+    width: 8px; height: 8px;
+    background: #82c9a0;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .chat-window {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 520px;
+  }
+
+  .chat-header {
+    background: rgba(255,255,255,0.08);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .chat-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--sage), #82c9a0);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .chat-header-info h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: white;
+  }
+
+  .chat-header-info span {
+    font-size: 0.75rem;
+    color: #82c9a0;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .online-dot {
+    width: 6px; height: 6px;
+    background: #82c9a0;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.1) transparent;
+  }
+
+  .msg {
+    max-width: 82%;
+    line-height: 1.5;
+    font-size: 0.875rem;
+  }
+
+  .msg-bot {
+    align-self: flex-start;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.9);
+    padding: 0.875rem 1.25rem;
+    border-radius: 0 12px 12px 12px;
+  }
+
+  .msg-user {
+    align-self: flex-end;
+    background: var(--sage);
+    color: white;
+    padding: 0.875rem 1.25rem;
+    border-radius: 12px 0 12px 12px;
+  }
+
+  .msg-typing {
+    align-self: flex-start;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.5);
+    padding: 0.875rem 1.25rem;
+    border-radius: 0 12px 12px 12px;
+    font-style: italic;
+    font-size: 0.8rem;
+    display: none;
+  }
+
+  .chat-input-area {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 0.75rem;
+    background: rgba(0,0,0,0.2);
+  }
+
+  .chat-input-area input {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: white;
+    font-size: 0.875rem;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .chat-input-area input::placeholder { color: rgba(255,255,255,0.35); }
+  .chat-input-area input:focus { border-color: rgba(255,255,255,0.35); }
+
+  .chat-send {
+    background: var(--sage);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .chat-send:hover { background: #3d6b4a; }
+  .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .quick-questions {
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.1);
+  }
+
+  .quick-q {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .quick-q:hover {
+    background: rgba(255,255,255,0.12);
+    color: white;
+  }
+
+  /* ── CONSULTATION ── */
+  #consultation {
+    background: white;
+  }
+
+  .consultation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .consult-card {
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s;
+  }
+
+  .consult-card:hover { transform: translateY(-4px); }
+
+  .consult-card.basic {
+    background: var(--warm);
+    border: 1.5px solid var(--border);
+  }
+
+  .consult-card.standard {
+    background: var(--slate);
+    color: white;
+  }
+
+  .consult-card.premium {
+    background: var(--warm);
+    border: 1.5px solid var(--gold);
+  }
+
+  .consult-badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .basic .consult-badge { background: rgba(74,124,89,0.1); color: var(--sage); }
+  .standard .consult-badge { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); }
+  .premium .consult-badge { background: rgba(200,169,110,0.2); color: #8a6420; }
+
+  .consult-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .standard .consult-price { color: white; }
+
+  .consult-unit {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .standard .consult-unit { color: rgba(255,255,255,0.5); }
+
+  .consult-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .standard h3 { color: white; }
+
+  .consult-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .consult-features li {
+    font-size: 0.85rem;
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
+
+  .standard .consult-features li { color: rgba(255,255,255,0.75); }
+
+  .consult-features li::before {
+    content: '✓';
+    color: var(--sage);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .standard .consult-features li::before { color: #82c9a0; }
+
+  .btn-consult {
+    width: 100%;
+    padding: 0.875rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    border: none;
+  }
+
+  .basic .btn-consult {
+    background: white;
+    color: var(--sage);
+    border: 1.5px solid var(--sage);
+  }
+
+  .basic .btn-consult:hover { background: var(--sage); color: white; }
+
+  .standard .btn-consult {
+    background: white;
+    color: var(--slate);
+  }
+
+  .standard .btn-consult:hover { background: #f0f0f0; }
+
+  .premium .btn-consult {
+    background: var(--gold);
+    color: white;
+  }
+
+  .premium .btn-consult:hover { background: #b8963e; }
+
+  /* ── À PROPOS ── */
+  #about {
+    background: var(--warm);
+  }
+
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-right {
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .about-right h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    color: var(--slate);
+  }
+
+  .about-detail {
+    display: flex;
+    gap: 1rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.875rem;
+  }
+
+  .about-detail:last-child { border-bottom: none; }
+
+  .about-detail strong {
+    min-width: 100px;
+    color: var(--muted);
+    font-weight: 400;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.65);
+    padding: 3rem 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 1rem;
+  }
+
+  footer .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: white;
+    font-weight: 600;
+  }
+
+  footer p { font-size: 0.8rem; }
+
+  footer a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: white; }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  /* ── CRISIS BANNER ── */
+  .crisis-banner {
+    background: linear-gradient(90deg, #2d1b1b, #4a1a1a);
+    color: white;
+    padding: 0.875rem 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .crisis-banner a {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .crisis-banner a:hover { background: rgba(255,255,255,0.25); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 6rem 2rem 4rem; }
+    .types-header { grid-template-columns: 1fr; gap: 2rem; }
+    .chatbot-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .consultation-grid { grid-template-columns: 1fr; }
+    .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .nav-links { display: none; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- Crisis Banner -->
+<div class="crisis-banner">
+  🆘 Situation d'urgence psychologique ? <a href="tel:3114">3114 — Numéro national de prévention du suicide</a>
+</div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#" class="nav-logo">Neo<span>psy</span></a>
+  <ul class="nav-links">
+    <li><a href="#types">Types de harcèlement</a></li>
+    <li><a href="#signes">Signes & symptômes</a></li>
+    <li><a href="#chatbot">Assistant IA</a></li>
+    <li><a href="#consultation">Consultation</a></li>
+    <li><a href="#about">Le cabinet</a></li>
+    <li><a href="tel:0782005614" class="nav-cta">📞 078 200 56 14</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+
+  <div class="hero-left fade-in">
+    <div class="hero-badge">Cabinet Neopsy Thérapie — Carouge, Genève</div>
+    <h1>Le harcèlement au travail<br>ne devrait jamais être<br><em>toléré.</em></h1>
+    <p>Comprendre, reconnaître et agir face au harcèlement en entreprise. Un espace d'information clinique et d'accompagnement psychologique, ancré dans l'expertise psychiatrique du Dr Dan.</p>
+    <div class="hero-actions">
+      <a href="#chatbot" class="btn-primary">💬 Parler à l'assistant IA</a>
+      <a href="tel:0782005614" class="btn-secondary">📞 Prendre un rendez-vous</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <h3>Neopsy Thérapie</h3>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Adresse</div>
+          <div class="contact-value">Route des Jeunes 37, 1227 Carouge</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Téléphone</div>
+          <div class="contact-value">078 200 56 14</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🌐</div>
+        <div>
+          <div class="contact-label">Site web</div>
+          <div class="contact-value">www.neopsy.ch</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-label">Horaires</div>
+          <div class="contact-value">Lun–Ven · Jusqu'à 18h00</div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-num">28%</div>
+          <div class="stat-label">des salariés exposés au stress professionnel</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1/3</div>
+          <div class="stat-label">des burn-outs liés à du harcèlement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Types de Harcèlement -->
+<section id="types">
+  <div class="types-header fade-in">
+    <div>
+      <div class="section-tag">Identifier</div>
+      <h2 class="section-title">Les formes de<br>harcèlement au travail</h2>
+    </div>
+    <p class="section-sub">Le harcèlement au travail peut prendre de multiples visages. Le reconnaître est la première étape vers la protection de votre santé psychologique et de vos droits.</p>
+  </div>
+
+  <div class="types-grid">
+
+    <div class="type-card fade-in">
+      <div class="type-icon">⚖️</div>
+      <h3>Harcèlement Moral</h3>
+      <p>Agissements répétés ayant pour objet ou effet une dégradation des conditions de travail portant atteinte aux droits, à la dignité ou à la santé du salarié (Art. L1152-1 du Code du travail). Il n'est pas nécessaire de démontrer l'intention de nuire depuis l'arrêt HSBC de 2009.</p>
+      <div class="type-tags">
+        <span class="tag">Intimidation</span>
+        <span class="tag">Humiliation</span>
+        <span class="tag">Isolement</span>
+        <span class="tag">Surcharge</span>
+      </div>
+    </div>
+
+    <div class="type-card fade-in">
+      <div class="type-icon">🚫</div>
+      <h3>Harcèlement Sexuel</h3>
+      <p>Sollicitations ou comportements à connotation sexuelle non consentis, visant à obtenir des faveurs ou à créer un environnement hostile. Cas particulier du harcèlement moral, il vise la destruction psychologique via l'humiliation et l'abus de pouvoir.</p>
+      <div class="type-tags">
+        <span class="tag">Agissements sexistes</span>
+        <span class="tag">Avances répétées</span>
+        <span class="tag">Chantage</span>
+      </div>
+    </div>
+
+    <div class="type-card fade-in">
+      <div class="type-icon">👥</div>
+      <h3>Harcèlement de Groupe (Mobbing)</h3>
+      <p>Forme collective où un groupe de collègues s'unit pour cibler une personne. Particulièrement destructeur car il isole socialement la victime et exploite la dynamique de groupe : bourreaux, complices actifs ou passifs, victimes et témoins silencieux.</p>
+      <div class="type-tags">
+        <span class="tag">Exclusion sociale</span>
+        <span class="tag">Rumeurs</span>
+        <span class="tag">Pression collective</span>
+      </div>
+    </div>
+
+    <div class="type-card fade-in">
+      <div class="type-icon">📊</div>
+      <h3>Harcèlement Managérial</h3>
+      <p>Abus de pouvoir hiérarchique se manifestant par des méthodes de management pathologiques : objectifs impossibles, critiques permanentes, dévalorisation systématique, contrôle excessif ou au contraire mise à l'écart totale de toute mission.</p>
+      <div class="type-tags">
+        <span class="tag">Placardisation</span>
+        <span class="tag">Surcharge délibérée</span>
+        <span class="tag">Déqualification</span>
+      </div>
+    </div>
+
+    <div class="type-card fade-in">
+      <div class="type-icon">💻</div>
+      <h3>Cyberharcèlement Professionnel</h3>
+      <p>Utilisation des outils numériques (mails, messageries, réseaux internes) pour exercer une pression continue, hors des heures de travail, ou pour humilier publiquement. Amplifié par le télétravail et la perméabilité des frontières vie pro/perso.</p>
+      <div class="type-tags">
+        <span class="tag">Mails harcelants</span>
+        <span class="tag">Surveillance numérique</span>
+        <span class="tag">Injonctions nocturnes</span>
+      </div>
+    </div>
+
+    <div class="type-card fade-in">
+      <div class="type-icon">🏛️</div>
+      <h3>Maltraitance Institutionnelle</h3>
+      <p>Distinct du harcèlement classique, ce phénomène est parfois involontaire mais tout aussi destructeur. Il résulte de politiques organisationnelles structurelles (restructurations, logiques gestionnaires) qui dégradent systématiquement les conditions de travail.</p>
+      <div class="type-tags">
+        <span class="tag">RPS systémiques</span>
+        <span class="tag">Burn-out collectif</span>
+        <span class="tag">Déshumanisation</span>
+      </div>
+    </div>
+
+    <div class="type-card fade-in">
+      <div class="type-icon">🎭</div>
+      <h3>Harcèlement Discriminatoire</h3>
+      <p>Harcèlement fondé sur un critère protégé par la loi : origine, sexe, âge, handicap, orientation sexuelle, convictions religieuses ou politiques. Il cumule les effets du harcèlement moral avec une dimension d'atteinte à l'identité fondamentale.</p>
+      <div class="type-tags">
+        <span class="tag">Discrimination</span>
+        <span class="tag">Stigmatisation</span>
+        <span class="tag">Exclusion identitaire</span>
+      </div>
+    </div>
+
+    <div class="type-card fade-in">
+      <div class="type-icon">🔄</div>
+      <h3>Harcèlement Ascendant (Bossing inversé)</h3>
+      <p>Moins connu mais réel, ce type de harcèlement est exercé par des subordonnés sur un supérieur hiérarchique. Souvent instrumentalisé pour écarter un manager gênant, il peut prendre la forme de coalitions, d'accusations collectives ou de sabotage organisé.</p>
+      <div class="type-tags">
+        <span class="tag">Coalition</span>
+        <span class="tag">Accusations groupées</span>
+        <span class="tag">Déstabilisation</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Signes & Symptômes -->
+<section id="signes">
+  <div class="fade-in">
+    <div class="section-tag">Reconnaître</div>
+    <h2 class="section-title">Signaux d'alerte :<br>suis-je concerné ?</h2>
+    <p class="section-sub">Le harcèlement laisse des traces psychologiques, physiques et comportementales identifiables. Ces signes peuvent être vécus par la victime, mais aussi être observables dans un service entier.</p>
+  </div>
+
+  <div class="signes-grid">
+    <div class="signe-item fade-in">
+      <div class="signe-num">01</div>
+      <div class="signe-text">
+        <h4>Anxiété et appréhension constante</h4>
+        <p>Angoisse du dimanche soir, crainte pathologique de se rendre au travail, état d'alerte permanent.</p>
+      </div>
+    </div>
+    <div class="signe-item fade-in">
+      <div class="signe-num">02</div>
+      <div class="signe-text">
+        <h4>Remise en question excessive</h4>
+        <p>Sentiment de honte, de culpabilité sans raison objective, sentiment d'incompétence soudain.</p>
+      </div>
+    </div>
+    <div class="signe-item fade-in">
+      <div class="signe-num">03</div>
+      <div class="signe-text">
+        <h4>Troubles du sommeil et ruminations</h4>
+        <p>Insomnies, cauchemars liés au travail, pensées intrusives le soir et le week-end.</p>
+      </div>
+    </div>
+    <div class="signe-item fade-in">
+      <div class="signe-num">04</div>
+      <div class="signe-text">
+        <h4>Symptômes physiques inexpliqués</h4>
+        <p>Maux de ventre, céphalées, tensions musculaires, problèmes dermatologiques au moment de retourner travailler.</p>
+      </div>
+    </div>
+    <div class="signe-item fade-in">
+      <div class="signe-num">05</div>
+      <div class="signe-text">
+        <h4>Isolement progressif</h4>
+        <p>Mise à l'écart des réunions, des pauses, des échanges informels. Sentiment d'invisibilité ou d'exclusion.</p>
+      </div>
+    </div>
+    <div class="signe-item fade-in">
+      <div class="signe-num">06</div>
+      <div class="signe-text">
+        <h4>Performances entravées</h4>
+        <p>Objectifs impossibles, travail sabordé, missions retirées sans explication ou au contraire charge démesurée.</p>
+      </div>
+    </div>
+    <div class="signe-item fade-in">
+      <div class="signe-num">07</div>
+      <div class="signe-text">
+        <h4>Perte de sens et désengagement</h4>
+        <p>Cynisme inhabituel, perte de motivation, sentiment d'impuissance totale face à la situation.</p>
+      </div>
+    </div>
+    <div class="signe-item fade-in">
+      <div class="signe-num">08</div>
+      <div class="signe-text">
+        <h4>Syndrome post-traumatique</h4>
+        <p>Dans les cas graves : dissociation, flash-backs, hypervigilance — conséquences psychologiques durables du harcèlement prolongé.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chatbot -->
+<section id="chatbot">
+  <div class="chatbot-layout">
+    <div class="chatbot-left fade-in">
+      <div class="section-tag" style="color:#82c9a0">Assistant IA</div>
+      <h2 class="section-title">Posez vos questions<br>en toute confidentialité</h2>
+      <p class="section-sub">Notre assistant IA est formé sur la littérature clinique et juridique du harcèlement au travail. Disponible 24h/24, il peut vous aider à comprendre votre situation avant de consulter.</p>
+      <div class="chatbot-features">
+        <div class="chatbot-feature"><span class="dot"></span> Réponses basées sur l'expertise psychiatrique</div>
+        <div class="chatbot-feature"><span class="dot"></span> Guidance sur les recours possibles</div>
+        <div class="chatbot-feature"><span class="dot"></span> Identification des signes de harcèlement</div>
+        <div class="chatbot-feature"><span class="dot"></span> Orientation vers une consultation si nécessaire</div>
+        <div class="chatbot-feature"><span class="dot"></span> Disponible 24h/24, 7j/7</div>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="chat-window">
+        <div class="chat-header">
+          <div class="chat-avatar">🧠</div>
+          <div class="chat-header-info">
+            <h4>Assistant Neopsy</h4>
+            <span><span class="online-dot"></span> En ligne — basé sur l'expertise du Dr Dan</span>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+          <div class="msg msg-bot">Bonjour, je suis l'assistant Neopsy. Je suis là pour vous aider à comprendre les situations de harcèlement au travail et vous orienter vers les bons interlocuteurs. Comment puis-je vous aider ?</div>
+        </div>
+
+        <div class="msg msg-typing" id="typingIndicator">L'assistant réfléchit...</div>
+
+        <div class="quick-questions">
+          <div class="quick-q" onclick="sendQuickQ('Comment reconnaître le harcèlement moral ?')">Harcèlement moral</div>
+          <div class="quick-q" onclick="sendQuickQ('Quels sont mes recours juridiques ?')">Recours juridiques</div>
+          <div class="quick-q" onclick="sendQuickQ('Mon manager me surcharge volontairement, que faire ?')">Surcharge managériale</div>
+          <div class="quick-q" onclick="sendQuickQ('Comment constituer un dossier de preuves ?')">Preuves</div>
+        </div>
+
+        <div class="chat-input-area">
+          <input type="text" id="chatInput" placeholder="Décrivez votre situation..." onkeypress="handleEnter(event)">
+          <button class="chat-send" id="sendBtn" onclick="sendMessage()">Envoyer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Consultation -->
+<section id="consultation">
+  <div class="fade-in" style="text-align:center; margin-bottom:1rem">
+    <div class="section-tag">Accompagnement</div>
+    <h2 class="section-title">Consultations avec le Dr Dan</h2>
+    <p class="section-sub" style="margin:0 auto">Un suivi psychiatrique personnalisé pour les victimes de harcèlement au travail, en présentiel à Carouge ou en téléconsultation.</p>
+  </div>
+
+  <div class="consultation-grid">
+    <div class="consult-card basic fade-in">
+      <span class="consult-badge">Premiers pas</span>
+      <div class="consult-price">CHF 80</div>
+      <div class="consult-unit">consultation initiale</div>
+      <h3>Évaluation</h3>
+      <ul class="consult-features">
+        <li>Entretien d'évaluation 45 min</li>
+        <li>Analyse de votre situation</li>
+        <li>Identification du type de harcèlement</li>
+        <li>Orientation et conseils pratiques</li>
+      </ul>
+      <a href="tel:0782005614" class="btn-consult">Prendre rendez-vous →</a>
+    </div>
+
+    <div class="consult-card standard fade-in">
+      <span class="consult-badge">⭐ Recommandé</span>
+      <div class="consult-price">CHF 150</div>
+      <div class="consult-unit">par séance</div>
+      <h3>Suivi Thérapeutique</h3>
+      <ul class="consult-features">
+        <li>Séances hebdomadaires 50 min</li>
+        <li>Traitement du stress post-traumatique</li>
+        <li>Techniques de coping adaptées</li>
+        <li>Soutien à la démarche judiciaire</li>
+        <li>Coordination avec médecin du travail</li>
+      </ul>
+      <a href="tel:0782005614" class="btn-consult">Commencer le suivi →</a>
+    </div>
+
+    <div class="consult-card premium fade-in">
+      <span class="consult-badge">Premium</span>
+      <div class="consult-price">CHF 280</div>
+      <div class="consult-unit">pack bilan complet</div>
+      <h3>Expertise & Bilan</h3>
+      <ul class="consult-features">
+        <li>Bilan psychologique complet</li>
+        <li>Rapport psychiatrique officiel</li>
+        <li>Document utilisable en justice</li>
+        <li>Accompagnement RH/juridique</li>
+        <li>Suivi post-bilan inclus</li>
+      </ul>
+      <a href="tel:0782005614" class="btn-consult">Demander un bilan →</a>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:2.5rem; font-size:0.82rem; color:var(--muted)">
+    💳 Prise en charge partielle possible selon assurance complémentaire · 📍 Présentiel à Carouge ou 💻 Téléconsultation
+  </div>
+</section>
+
+<!-- À Propos -->
+<section id="about">
+  <div class="about-layout">
+    <div class="fade-in">
+      <div class="section-tag">Le cabinet</div>
+      <h2 class="section-title">Neopsy Thérapie</h2>
+      <p class="section-sub" style="margin-bottom:2rem">Le cabinet Neopsy est un espace psychiatrique et psychothérapeutique dédié à la santé mentale au travail. Le Dr Dan accompagne les individus confrontés aux risques psychosociaux, aux burn-outs, et aux situations de harcèlement.</p>
+      <p style="font-size:0.9rem; color:#666; line-height:1.8; font-weight:300">L'approche intègre les données de la recherche internationale en psychologie du travail — notamment les modèles Demande-Contrôle-Soutien et Effort-Récompense — avec une pratique clinique centrée sur la personne. L'objectif : comprendre, stabiliser, reconstruire.</p>
+
+      <div style="margin-top:2rem; padding:1.5rem; background:rgba(74,124,89,0.08); border-radius:8px; border-left:3px solid var(--sage)">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; color:var(--slate); line-height:1.6">
+          "Le harcèlement est un concept qualifiant des attitudes réitérées supposant une relation asymétrique et inégalitaire. Ses conséquences psychologiques sont réelles et documentées — elles méritent une prise en charge sérieuse."
+        </p>
+        <p style="font-size:0.8rem; color:var(--muted); margin-top:0.75rem">— Ariane Bilheran, psychologue clinicienne</p>
+      </div>
+    </div>
+
+    <div class="about-right fade-in">
+      <h3>Informations pratiques</h3>
+      <div class="about-detail">
+        <strong>Adresse</strong>
+        <span>Route des Jeunes 37<br>1227 Carouge, Genève</span>
+      </div>
+      <div class="about-detail">
+        <strong>Téléphone</strong>
+        <a href="tel:0782005614" style="color:var(--sage); font-weight:500; text-decoration:none">078 200 56 14</a>
+      </div>
+      <div class="about-detail">
+        <strong>Site web</strong>
+        <a href="http://www.neopsy.ch" style="color:var(--sage); text-decoration:none" target="_blank">www.neopsy.ch</a>
+      </div>
+      <div class="about-detail">
+        <strong>Horaires</strong>
+        <span>Lundi – Vendredi<br>Ferme à 18h00</span>
+      </div>
+      <div class="about-detail">
+        <strong>Spécialités</strong>
+        <span>Harcèlement, Burn-out, RPS, PTSD, Dépression professionnelle</span>
+      </div>
+      <div class="about-detail">
+        <strong>Modes</strong>
+        <span>Présentiel · Téléconsultation</span>
+      </div>
+
+      <a href="https://maps.google.com/?q=Route+des+Jeunes+37,+1227+Carouge" target="_blank" class="btn-primary" style="margin-top:1.5rem; width:100%; justify-content:center; text-decoration:none">
+        📍 Voir sur la carte
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Bibliographie -->
+<section id="biblio" style="background: var(--ink); padding: 6rem 5vw;">
+  <div class="fade-in" style="text-align:center; margin-bottom:3.5rem">
+    <div class="section-tag" style="color:#82c9a0">Sources cliniques</div>
+    <h2 class="section-title" style="color:white">Le contenu de ce site est fondé<br>sur ces trois ouvrages de référence</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.55); margin:0 auto">Des travaux de psychologues, psychiatres et juristes spécialisés dans la souffrance au travail — pour vous garantir une information sérieuse et documentée.</p>
+  </div>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:2rem; max-width:1100px; margin:0 auto">
+
+    <!-- Livre 1 -->
+    <div class="fade-in" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; overflow:hidden; transition:transform 0.25s, border-color 0.25s" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='rgba(130,201,160,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.1)'">
+      <div style="background:linear-gradient(135deg, #2d1f3d, #4a2060); padding:3rem 2rem; text-align:center; position:relative; overflow:hidden">
+        <div style="position:absolute; inset:0; background:radial-gradient(ellipse at 60% 30%, rgba(130,201,160,0.15) 0%, transparent 60%)"></div>
+        <div style="font-size:3.5rem; margin-bottom:0.5rem; position:relative">📗</div>
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:600; color:white; line-height:1.3; position:relative">Harcèlement<br>en Entreprise</div>
+      </div>
+      <div style="padding:1.75rem">
+        <div style="font-size:0.75rem; color:#82c9a0; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.5rem">Psychologie & Droit</div>
+        <div style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:1rem">Ariane Bilheran & Gilles Bouyssou</div>
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.7); line-height:1.7; font-weight:300">Un guide pratique en Q&R pour identifier, comprendre et agir face au harcèlement. Couvre les profils de harceleurs, les responsabilités de l'employeur, les recours juridiques et la reconstruction psychosociale après une situation de harcèlement.</p>
+        <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; gap:0.4rem">
+          <span style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); padding:0.25rem 0.6rem; border-radius:20px; font-size:0.72rem">Identification</span>
+          <span style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); padding:0.25rem 0.6rem; border-radius:20px; font-size:0.72rem">Droit du travail</span>
+          <span style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); padding:0.25rem 0.6rem; border-radius:20px; font-size:0.72rem">Recours</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Livre 2 -->
+    <div class="fade-in" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; overflow:hidden; transition:transform 0.25s, border-color 0.25s" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='rgba(130,201,160,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.1)'">
+      <div style="background:linear-gradient(135deg, #1a2f1a, #2a4a3a); padding:3rem 2rem; text-align:center; position:relative; overflow:hidden">
+        <div style="position:absolute; inset:0; background:radial-gradient(ellipse at 40% 70%, rgba(200,169,110,0.15) 0%, transparent 60%)"></div>
+        <div style="font-size:3.5rem; margin-bottom:0.5rem; position:relative">📘</div>
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:600; color:white; line-height:1.3; position:relative">Risques Psychosociaux<br>au Travail</div>
+      </div>
+      <div style="padding:1.75rem">
+        <div style="font-size:0.75rem; color:#82c9a0; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.5rem">RPS & Prévention</div>
+        <div style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:1rem">Grasset · Debout · Rouat · Bachelard</div>
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.7); line-height:1.7; font-weight:300">Une approche multidimensionnelle des risques psychosociaux : juridique, gestionnaire, psychomédicale et sociale. Traite du stress professionnel, du burn-out et des mécanismes institutionnels qui génèrent la souffrance au travail.</p>
+        <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; gap:0.4rem">
+          <span style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); padding:0.25rem 0.6rem; border-radius:20px; font-size:0.72rem">RPS</span>
+          <span style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); padding:0.25rem 0.6rem; border-radius:20px; font-size:0.72rem">Burn-out</span>
+          <span style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); padding:0.25rem 0.6rem; border-radius:20px; font-size:0.72rem">Prévention</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Livre 3 -->
+    <div class="fade-in" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; overflow:hidden; transition:transform 0.25s, border-color 0.25s" onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='rgba(130,201,160,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.1)'">
+      <div style="background:linear-gradient(135deg, #1a1f3d, #2d2a50); padding:3rem 2rem; text-align:center; position:relative; overflow:hidden">
+        <div style="position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%, rgba(74,124,89,0.2) 0%, transparent 60%)"></div>
+        <div style="font-size:3.5rem; margin-bottom:0.5rem; position:relative">📙</div>
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:600; color:white; line-height:1.3; position:relative">Work & Organizational<br>Psychology</div>
+      </div>
+      <div style="padding:1.75rem">
+        <div style="font-size:0.75rem; color:#82c9a0; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.5rem">Psychologie du travail</div>
+        <div style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:1rem">Nik Chmiel (dir.) — Blackwell Publishing</div>
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.7); line-height:1.7; font-weight:300">Référence académique européenne sur le stress professionnel et la santé au travail. Présente les grands modèles théoriques — Demande-Contrôle-Soutien, Effort-Récompense, JDR — qui fondent la compréhension scientifique du harcèlement et du burn-out.</div>
+        <div style="margin-top:1.25rem; display:flex; flex-wrap:wrap; gap:0.4rem">
+          <span style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); padding:0.25rem 0.6rem; border-radius:20px; font-size:0.72rem">Modèles théoriques</span>
+          <span style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); padding:0.25rem 0.6rem; border-radius:20px; font-size:0.72rem">Stress au travail</span>
+          <span style="background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); padding:0.25rem 0.6rem; border-radius:20px; font-size:0.72rem">Recherche</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="fade-in" style="text-align:center; margin-top:3rem; font-size:0.78rem; color:rgba(255,255,255,0.3)">
+    Ces ouvrages sont utilisés à des fins de référencement clinique et pédagogique. Neopsy Thérapie ne vend pas ces livres.
+  </p>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div>
+    <div class="footer-logo">Neopsy Thérapie</div>
+    <p style="margin-top:0.5rem">© 2025 — Cabinet psychiatrique, Carouge</p>
+  </div>
+  <div class="footer-links">
+    <a href="#types">Harcèlement</a>
+    <a href="#chatbot">Assistant IA</a>
+    <a href="#consultation">Consultation</a>
+    <a href="tel:0782005614">078 200 56 14</a>
+    <a href="http://www.neopsy.ch" target="_blank">neopsy.ch</a>
+  </div>
+</footer>
+
+<script>
+// ── Fade-in on scroll ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ── Chatbot ──
+const SYSTEM_PROMPT = `Tu es l'assistant psychiatrique du cabinet Neopsy Thérapie, dirigé par le Dr Dan, psychiatre à Carouge (Route des Jeunes 37, 1227 Carouge, tél: 078 200 56 14, www.neopsy.ch).
+
+Tu es expert en harcèlement au travail. Tes réponses sont basées sur :
+- La psychopathologie du harcèlement (moral, sexuel, institutionnel, mobbing)
+- Le droit du travail français et suisse (harcèlement défini à l'Art. L1152-1, arrêt HSBC 2009)
+- Les risques psychosociaux (RPS) : stress, burn-out, syndrome post-traumatique
+- Les recours possibles : médecin du travail, CHSCT, inspection du travail, prud'hommes
+- Les modèles de prévention : Demande-Contrôle-Soutien, Effort-Récompense Imbalance
+
+Règles importantes :
+1. Réponds en FRANÇAIS, de façon claire et empathique
+2. Si quelqu'un semble en détresse aiguë ou parle de se faire du mal, oriente IMMÉDIATEMENT vers le 3114 (numéro national de prévention du suicide)
+3. Tu n'es pas avocat : oriente vers des professionnels pour les questions juridiques précises
+4. Rappelle régulièrement que le Dr Dan peut être consulté pour un accompagnement personnalisé
+5. Sois concis (3-5 phrases max par réponse), pratique et bienveillant
+6. Ne pose qu'une question à la fois si tu as besoin de précisions
+7. Commence directement la réponse sans formule de politesse inutile`;
+
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+const typingIndicator = document.getElementById('typingIndicator');
+
+let conversation = [];
+
+function addMessage(text, isUser) {
+  const div = document.createElement('div');
+  div.className = `msg ${isUser ? 'msg-user' : 'msg-bot'}`;
+  div.textContent = text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTyping(show) {
+  typingIndicator.style.display = show ? 'block' : 'none';
+  if (show) {
+    typingIndicator.style.marginTop = '0';
+    chatMessages.appendChild(typingIndicator);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+}
+
+async function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+
+  chatInput.value = '';
+  sendBtn.disabled = true;
+
+  addMessage(text, true);
+  conversation.push({ role: 'user', content: text });
+
+  showTyping(true);
+
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: conversation })
+    });
+
+    const data = await response.json();
+    const reply = data.reply || "Je n'ai pas pu obtenir de réponse. Veuillez réessayer ou appeler directement le cabinet au 078 200 56 14.";
+    
+    conversation.push({ role: 'assistant', content: reply });
+    showTyping(false);
+    addMessage(reply, false);
+  } catch (err) {
+    showTyping(false);
+    addMessage("Une erreur est survenue. N'hésitez pas à nous appeler directement au 078 200 56 14 ou à consulter le site neopsy.ch.", false);
+  }
+
+  sendBtn.disabled = false;
+  chatInput.focus();
+}
+
+function sendQuickQ(question) {
+  chatInput.value = question;
+  sendMessage();
+}
+
+function handleEnter(e) {
+  if (e.key === 'Enter') sendMessage();
+}
+</script>
+</body>
+</html>
